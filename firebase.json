@@ -1,0 +1,35 @@
+{
+  "clients": [
+    null,
+    "Rob's Drywall",
+    "Spaar"
+  ],
+  "jobs": {
+    "1234": {
+      "client": 1,
+      "crew": "Dave",
+      "dateUpdated": 1234456,
+      "email": "plain body email here",
+      "itemId": 3245,
+      "jobAddress": "123 main street",
+      "jobStartDate": 123456789,
+      "notes": "here's a note",
+      "quantity": 33,
+      "status": "Assigned",
+      "timeframe": "AM"
+    },
+    "4321": {
+      "client": 2,
+      "crew": "Dave",
+      "dateUpdated": 1234456,
+      "email": "plain body email here",
+      "itemId": 3245,
+      "jobAddress": "123 main street",
+      "jobStartDate": 123456789,
+      "notes": "here's a note",
+      "quantity": 33,
+      "status": "Assigned",
+      "timeframe": "AM"
+    }
+  }
+}
