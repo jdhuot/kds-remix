@@ -5,9 +5,9 @@ export default function DateNav({ initialDate, onDateChange }) {
   const [selectedDate, setSelectedDate] = useState(initialDate);
 
   return (
-    <div>
+    <div className='flexed'>
       <button onClick={() => changeDate(-1)}>&lt;</button>
-      <span>{formatDate(selectedDate)}</span>
+      <h2>{formatDate(selectedDate)}</h2>
       <button onClick={() => changeDate(1)}>&gt;</button>
     </div>
   );

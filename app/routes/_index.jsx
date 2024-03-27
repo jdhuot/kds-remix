@@ -9,9 +9,11 @@ import { redirect } from '@remix-run/react';
 
 import { useNavigate } from 'react-router-dom';
 import JobForm from '~/components/JobForm';
-import ClientForm from '~/components/ClientForm';
-import CrewForm from '~/components/CrewForm';
 import { json } from '@remix-run/react';
+import { Button } from '@mui/material';
+import DialogModal from '~/components/DialogModal';
+
+import "~/styles/global.css";
 
 export const meta = () => {
   return [
@@ -72,6 +74,11 @@ export default function Index() {
   const clientsObj = data.clients;
   const [filteredJobs, setFilteredJobs] = useState([]);
   const [totalBoardFeet, setTotalBoardFeet] = useState(0);
+  const [modalOpen, setModalOpen] = useState({type: null, title: null});
+
+  const handleOpenModal = (type, title = null) => {
+    setModalOpen({type: type, title: title});
+  };
 
   console.log("Jobs: ", jobs)
 
@@ -120,14 +127,39 @@ export default function Index() {
   return (
     <div>
       <Header username="admin" />
-      <DateNav initialDate={selectedDate} onDateChange={setSelectedDate} />
-      {filteredJobs &&
-      <JobList jobs={filteredJobs} clients={clientsArray} crew={crewArray} />
-      }
-      <h3>Total Board Feet: {totalBoardFeet}</h3>
-      <JobForm clients={clientsArray} crew={crewArray}/>
-      <ClientForm />
-      <CrewForm />
+      <section>
+        <div className='container flexed-v tar'>
+          <DateNav initialDate={selectedDate} onDateChange={setSelectedDate} />
+          {filteredJobs &&
+          <JobList jobs={filteredJobs} clients={clientsArray} crew={crewArray} />
+          }
+          <div className='justify-between'>
+            <div className="flexed">
+              <button onClick={() => handleOpenModal('newJob', 'Add Job')}>
+                Add Job
+              </button>
+              <button onClick={() => handleOpenModal('newClient', 'Add Client')}>
+                Add Client
+              </button>
+              <button onClick={() => handleOpenModal('newCrew', 'Add Crew Member')}>
+                Add Crew
+              </button>
+            </div>
+            <h3>Total Board Feet: {totalBoardFeet}</h3>
+          </div>
+          
+          {modalOpen.type !== null && (
+            <DialogModal
+              open={modalOpen.type !== null}
+              onClose={() => setModalOpen({type: null, title: null})}
+              type={modalOpen.type}
+              clients={clientsArray}
+              crew={crewArray}
+              title={modalOpen.title}
+            />
+          )}
+        </div>
+      </section>
     </div>
   );
 }

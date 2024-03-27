@@ -35,7 +35,7 @@ export default function JobForm({ job, clients, crew }) {
         </select>
       </label>
       
-      <label>
+      <label className="full-width">
         Job Address:
         <input
           type="text"
@@ -51,13 +51,6 @@ export default function JobForm({ job, clients, crew }) {
           required
           name="jobStartDate"
           defaultValue={job?.jobStartDate}
-        />
-      </label>
-      <label>
-        Notes:
-        <textarea
-          name="notes"
-          defaultValue={job?.notes}
         />
       </label>
       <label>
@@ -83,12 +76,19 @@ export default function JobForm({ job, clients, crew }) {
         Timeframe:
         <select
           name="timeframe"
-          defaultValue={job?.timeframe || 'unset'}
+          defaultValue={job?.timeframe || ''}
         >
-          <option value="unset">unset</option>
+          <option value=""></option>
           <option value="AM">AM</option>
           <option value="PM">PM</option>
         </select>
+      </label>
+      <label className="full-width">
+        Notes:
+        <textarea
+          name="notes"
+          defaultValue={job?.notes}
+        />
       </label>
 
       <button type="submit">Save Job</button>

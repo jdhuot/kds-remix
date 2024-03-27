@@ -4,7 +4,7 @@ export default function ClientForm({ client }) {
     <form method="POST" action="?index">
       <input type="hidden" name="formId" value="clients"/>
       <input type="hidden" name="id" value={client?.id || ""}/>
-      <label>
+      <label className="full-width">
         Client Name:
         <input
           type="text"

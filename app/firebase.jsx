@@ -55,7 +55,7 @@ export const getAllJobs = async () => {
           job['client'] = clientsObj[job.clientId]
           job['crew'] = crewsObj[job.crewId]
         }
-        console.log("getAllJobs Data: ", data);
+        // console.log("getAllJobs Data: ", data);
         return data;
     } else {
         //no data
@@ -92,6 +92,33 @@ export const createOrUpdateJob = async (job) => {
 
 }
 
+export const getClientId = async(clientName) => {
+  if (!clientName || clientName == "") {
+    return null
+  }
+  const allClients = await getAllClients();
+  const clientsArray = Object.entries(allClients).map(([key, value]) => ({
+    id: key,
+    ...value
+  }));
+  console.log("clientsArray: ", clientsArray)
+  const filtered = clientsArray.find(client => client.name?.toLowerCase() == clientName.toLowerCase());
+  return filtered ? filtered.id : null;
+}
+
+export const getCrewId = async(crewName) => {
+  if (!crewName || crewName == "") {
+    return null
+  }
+  const allCrew = await getAllCrew();
+  const crewArray = Object.entries(allCrew).map(([key, value]) => ({
+    id: key,
+    ...value
+  }));
+  const filtered = crewArray.find(crew => crew.name?.toLowerCase() == crewName.toLowerCase());
+  return filtered ? filtered.id : null;
+}
+
 
 export const createOrUpdateClient = async (item) => {
   // Decide if it's a new item or editing an existing one based on client id
@@ -104,11 +131,13 @@ export const createOrUpdateClient = async (item) => {
       // Update existing client
       await update(dbRef, item);
       console.log("updated client");
+      return item.id;
     } else {
       // Add new client
       item['id'] = newId;
       await set(dbRef, item);
       console.log("created new client");
+      return item.id;
     }
 
   } catch (error) {
@@ -130,11 +159,12 @@ export const createOrUpdateCrew = async (item) => {
       // Update existing crew
       await update(dbRef, item);
       console.log("updated crew");
+      return item.id;
     } else {
       // Add new crew
       item['id'] = newId;
       await set(dbRef, item);
-      console.log("created new crew");
+      return item.id;
     }
 
   } catch (error) {
